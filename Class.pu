@@ -1,0 +1,23 @@
+@startuml simple_http_server
+
+HttpRequestRegex o-- HttpRequestHandler
+HttpRequestRegex : string Url
+HttpRequestRegex : HttpMethod Method
+HttpRequestRegex : Dictionary<string, string> Headers
+
+HttpResponseRule o-- HttpRequestHandler
+HttpResponseRule : string UrlRegex
+HttpResponseRule : HttpMethod Method
+HttpResponseRule : Dictionary<string, string> HeadersRegex
+
+HttpRequestHandler o-- HttpServer
+HttpRequestHandler : RequestRegex RequestRegex
+HttpRequestHandler : HttpResponseRule ResponseRule
+HttpRequestHandler : Match(HttpListenerRequest)
+HttpRequestHandler : ConstructResonse()
+
+HttpServer : List<HttpRequestHandler> handler
+HttpServer : Start()
+HttpServer : Stop()
+
+@enduml
